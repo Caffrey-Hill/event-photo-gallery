@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %} 
 {% if 'SITE_SUBTITLE' in config %}<h2 class="subtitle">{{ config.SITE_SUBTITLE }}</h2>{% endif %}
-<p><a href="{{ url_for('photos.download_photos') }}" class="btn btn-outline-primary" role="button">Download All</a>
-</p>
+<p><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#votes-modal">My Votes</button>
+<a href="{{ url_for('photos.download_photos') }}" class="btn btn-outline-primary" role="button">Download</a></p>
 <div class="row" style="margin-top: 40px;">
   <div class="col">
     <nav aria-label="...">
@@ -18,7 +18,7 @@
   </div>
   <div class="col">
     <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#upload-modal"><i class="fa fa-upload"></i></button>
-      </div>
+  </div>
 </div>
 
 
@@ -56,6 +56,36 @@
           <button type="submit" class="btn btn-primary" name="action" action="upload">Upload</button>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="votes-modal" tabindex="-1" role="dialog"
+                                                       aria-labelledby="votesModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="votesModalLabel">Votes</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {% for category in votes %}
+        <h6>{{ category.name }}</h6>
+         {% for photo in category.photos %}
+         <div class="card" style="max-width;">
+            <img class="card-img-top img-thumbnail" src="{{ url_for('photos.view_raw_photo',id=photo.id) }}" style="max-height: 200px; image-orientation: from-image;" alt="Ranked photo">
+            <div class="card-body">
+              <p class="card-text">Rank: {{ photo.votes[0].rank }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        {% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
     </div>
   </div>
 </div>

@@ -17,12 +17,23 @@ def check_auth():
     if not current_user.is_authenticated:
         abort(401)
 
+def get_votes():
+    categories = Category.query\
+            .order_by(Category.name)\
+            .join(Photo)\
+            .join(Vote)\
+            .filter_by(user_id=current_user.id)\
+            .order_by(Vote.rank)\
+            .all()
+    return categories
+
 @photos.route('/')
 def view_gallery():
     page = int(request.args.get("page", 1))
     photos = Photo.query.paginate(page, 9)
     categories = Category.query.all()
-    return render_template('pages/gallery.html', photos=photos, categories=categories)
+    return render_template('pages/gallery.html', photos=photos,
+            categories=categories, votes=get_votes())
 
 @photos.route('/download')
 def download_photos():
