@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %} 
 {% if 'SITE_SUBTITLE' in config %}<h2 class="subtitle">{{ config.SITE_SUBTITLE }}</h2>{% endif %}
-<p><a href="{{ url_for('photos.download_photos') }}" class="btn btn-outline-primary" role="button">Download Gallery</a>
+<p><a href="{{ url_for('photos.download_photos') }}" class="btn btn-outline-primary" role="button">Download All</a>
 </p>
 <div class="row" style="margin-top: 40px;">
   <div class="col">
