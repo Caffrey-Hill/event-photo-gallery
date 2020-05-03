@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %} 
+
+{% with messages = get_flashed_messages() %}
+{% for message in messages %}
+<div class="alert alert-primary" role="alert">
+  {{ message }}
+</div>
+{% endfor %}
+{% endwith %}
+
+<div class="row text-center">
+  <span class="col text-cener">
+    <img src="{{ url_for('photos.view_raw_photo',id=photo_id) }}"  class="img-thumbnail"style="image-orientation: from-image;"/>
+  </span>
+</div>
+<div class="row text-center">
+  <span class="col text-cener">
+    Category: {{ category }}
+  </span>
+</div>
+
+<form method="post" class="mt-2 voting-form">
+  <div class="form-group">
+    <label for="rank">Your Vote</label>
+    <select class="form-control" name="rank" id="rank">
+      <option value="1">1st Choice</option>
+      <option value="2">2nd Choice</option>
+      <option value="3">3rd Choice</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-primary" type="submit" name="action" value="vote">Vote</button>
+  </div>
+</form>
+
+<div class="row" style="margin-top: 40px;">
+  <div class="col">
+    <nav aria-label="...">
+      <ul class="pagination">
+        <li class="page-item {{'disabled' if not has_prev }}">
+          <a class="page-link" href="{{'#' if not has_prev else url_for('photos.view_photo', id=prev_num) }}" tabindex="-1">Previous</a>
+        </li>
+        <li>
+          <a class="page-link" href="{{ url_for('photos.view_gallery') }}">Gallery</a>
+        </li>
+        <li class="page-item {{'disabled' if not has_next }}">
+          <a class="page-link" href="{{'#' if not has_next else  url_for('photos.view_photo', id=next_num) }}">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+{% if not config.DISABLE_COMMENTS %}
+
+<div class="container">
+  <div class="row">
+    <form method="post" style="width: 100%;">
+      <textarea name="comment" class="form-control" placeholder="Comment on photo"></textarea>
+      <button name="action" value="comment" type="submit" style="margin: 20px;" class="btn btn-primary float-right">Add Comment</button>
+    </form>
+  </div>
+  <div class="row">Comments</div>
+  {% if comments is defined and comments %}
+  {% for comment in comments %}
+  <div class="row">
+    <div class="card" style="width: 100%;">
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <p class="text-left">{{ comment.text }}</p>
+          <footer class="blockquote-footer float-right">{{ comment.user.name }}</footer>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <div class="row">
+    <p style="font-style: italic;">There are no comments on this photo yet.</p>
+  </div>
+  {% endif %}
+</div>
+</div>
+{% endif %}
+
+{% endblock %}

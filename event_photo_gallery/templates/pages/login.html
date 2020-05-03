@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %} 
+
+<p>Please enter your provided passcode to view and participate.</p>
+<p>If you did not receive a passcode, contact 
+{{ 'the event host' if 'CONTACT' not in config else config.CONTACT}}.</p>
+{% with messages = get_flashed_messages() %}
+{% for message in messages %}
+<div class="alert alert-primary" role="alert">
+  {{ message }}
+</div>
+{% endfor %}
+{% endwith %}
+
+<form method="post" class="form-inline justify-content-center">
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="passcode" class="sr-only">Passcode</label>
+    <input type="password" class="form-control" name="passcode" id="passcode" placeholder="Passcode">
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Sign In</button>
+</form>
+
+{% endblock %}
