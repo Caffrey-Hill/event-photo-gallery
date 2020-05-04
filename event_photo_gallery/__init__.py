@@ -3,16 +3,8 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['ALLOWED_PHOTO_EXTENSIONS'] = ['gif','jpg','jpeg','png','svg']
-app.config['UPLOADS_FOLDER'] = 'uploads'
-app.config['DISABLE_COMMENTS'] = False
-app.config['DISABLE_VOTES'] = False
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config.from_object('event_photo_gallery.default_settings')
 app.config.from_envvar('EVENT_PHOTO_GALLERY_SETTINGS')
-
-if 'SECRET_KEY' not in app.config:
-    import os
-    app.config['SECRET_KEY'] = os.urandom(16)
 
 db = SQLAlchemy(app)
 login = LoginManager(app)
