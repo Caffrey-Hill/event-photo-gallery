@@ -7,7 +7,7 @@ event-photo-gallery: A collaborative, micro photo gallery
 .. contents::
    :local:
 
-event-photo-gallery is a [Flask](https://palletsprojects.com/p/flask/)-based 
+event-photo-gallery is a `Flask <https://palletsprojects.com/p/flask/>`-based 
 micro photo gallery that is designed to enable users to create a small space
 for their guests to share and view photos.
 
