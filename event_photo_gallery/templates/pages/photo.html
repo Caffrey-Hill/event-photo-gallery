@@ -11,7 +11,7 @@
 
 <div class="row">
   <div class="col-12 mx-auto">
-    Category: {{ photo.category }}
+    <h5>Category: {{ photo.category.name if photo.category is not none else 'None' }}</h5>
   </div>
 </div>
 <div class="row">
