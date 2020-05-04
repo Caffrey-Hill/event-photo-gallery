@@ -45,3 +45,9 @@ body {
 h5.admin {
   margin-top: 20px;
 }
+
+.large-stat {
+  font-size: 2rem;
+  font-weight: bold;
+  color: orange;
+}

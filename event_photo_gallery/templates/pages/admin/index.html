@@ -1,0 +1,38 @@
+{% extends "admin_base.html" %}
+{% block content %} 
+<div class="row">
+  <div class="col-6 mb-4">
+    <div class="card shadow">
+      <div class="card-body">
+        <h5 class="card-title">Users</h5>
+        <span class="large-stat">{{ users }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 mb-4">
+    <div class="card shadow">
+      <div class="card-body">
+        <h5 class="card-title">Votes</h5>
+        <span class="large-stat">{{ votes }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 mb-4">
+    <div class="card shadow">
+      <div class="card-body">
+        <h5 class="card-title">Categories</h5>
+        <span class="large-stat">{{ categories }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-6 mb-4">
+    <div class="card shadow">
+      <div class="card-body">
+        <h5 class="card-title">Photos</h5>
+        <span class="large-stat">{{ photos }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
