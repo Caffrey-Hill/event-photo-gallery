@@ -17,7 +17,7 @@
           {% if current_user.admin %}
           <a class="btn btn-primary" href="{{ url_for('admin.index') }}">Admin</a>
           {% endif %}
-          <a class="btn btn-danger" href="/logout">Sign out</a>
+          <a class="btn btn-danger" href="{{ url_for('public.logout') }}">Sign out</a>
           {% endif %}
           </span>
         </div>
