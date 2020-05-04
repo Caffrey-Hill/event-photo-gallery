@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block content %} 
 {% if 'SITE_SUBTITLE' in config %}<h2 class="subtitle">{{ config.SITE_SUBTITLE }}</h2>{% endif %}
-<p><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#votes-modal">My Votes</button>
+<p>
+{% if not config.DISABLE_VOTES %}
+<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#votes-modal">My Votes</button>
+{% endif %}
 <a href="{{ url_for('photos.download_photos') }}" class="btn btn-outline-primary" role="button">Download</a>
 <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#upload-modal"><i class="fa fa-upload"></i> Upload</button>
 </p>
@@ -69,6 +72,7 @@
   </div>
 </div>
 
+{% if not config.DISABLE_VOTES %}
 <div class="modal fade" id="votes-modal" tabindex="-1" role="dialog"
                                                        aria-labelledby="votesModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -81,15 +85,25 @@
       </div>
       <div class="modal-body">
         {% for category in votes %}
-        <h6>{{ category.name }}</h6>
-        {% for photo in category.photos %}
-        <div class="card" style="max-width;">
-          <img class="card-img-top img-thumbnail" src="{{ url_for('photos.view_raw_photo',id=photo.id) }}" style="max-height: 200px; image-orientation: from-image;" alt="Ranked photo">
-          <div class="card-body">
-            <p class="card-text">Rank: {{ photo.votes[0].rank }}</p>
-          </div>
-        </div>
-        {% endfor %}
+        <h6>Category: {{ category.name }}</h6>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Rank</th>
+              <th scope="col">Photo ID</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for photo in category.photos %}
+            <tr>
+              <td>{{ photo.votes[0].rank }}</td>
+              <td>{{ photo.id }}</td>
+              <td><a href="{{ url_for('photos.view_photo',id=photo.id) }}">View</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
         {% endfor %}
       </div>
       <div class="modal-footer">
@@ -98,4 +112,5 @@
     </div>
   </div>
 </div>
+{% endif %}
 {% endblock %}
