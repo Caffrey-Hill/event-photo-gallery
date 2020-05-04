@@ -41,3 +41,7 @@ body {
     color: black;
     font-size: 26px;
 }
+
+h5.admin {
+  margin-top: 20px;
+}

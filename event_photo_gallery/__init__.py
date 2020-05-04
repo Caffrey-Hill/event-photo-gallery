@@ -23,9 +23,11 @@ db.create_all()
 
 from .utils import generate_passcode
 from .photos import photos
+from .admin import admin
 from .public import *
 
 app.register_blueprint(photos, url_prefix='/photos')
+app.register_blueprint(admin, url_prefix='/admin')
 
 admins = User.query.filter_by(admin=True).all()
 if not any(admins):
