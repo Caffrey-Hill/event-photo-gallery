@@ -2,11 +2,33 @@
 {% block content %} 
 {% if 'SITE_SUBTITLE' in config %}<h2 class="subtitle">{{ config.SITE_SUBTITLE }}</h2>{% endif %}
 <p><button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#votes-modal">My Votes</button>
-<a href="{{ url_for('photos.download_photos') }}" class="btn btn-outline-primary" role="button">Download</a></p>
-<div class="row" style="margin-top: 40px;">
-  <div class="col">
+<a href="{{ url_for('photos.download_photos') }}" class="btn btn-outline-primary" role="button">Download</a>
+<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#upload-modal"><i class="fa fa-upload"></i> Upload</button>
+</p>
+
+{% with messages = get_flashed_messages() %}
+{% for message in messages %}
+<div class="alert alert-primary" role="alert">
+  {{ message }}
+</div>
+{% endfor %}
+{% endwith %}
+
+<div class="row">
+  <div class="container">
+    <div class="row">
+      {% for photo in photos.items %}
+      <div class="col-4">
+        <a href="{{ url_for('photos.view_photo',id=photo.id) }}"><img src="{{ url_for('photos.view_raw_photo',id=photo.id) }}"  class="img-thumbnail" style="image-orientation: from-image;"/></a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
     <nav aria-label="...">
-      <ul class="pagination">
+      <ul class="pagination" style="justify-content: center;">
         <li class="page-item {{'disabled' if not photos.has_prev }}">
           <a class="page-link" href="{{'#' if photos.has_prev else "?page="+(photos.prev_num|string) }}" tabindex="-1">&#x25c0;</a>
         </li>
@@ -16,20 +38,7 @@
       </ul>
     </nav>
   </div>
-  <div class="col">
-    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#upload-modal"><i class="fa fa-upload"></i></button>
-  </div>
-</div>
 
-
-<div class="container">
-  <div class="row">
-    {% for photo in photos.items %}
-    <div class="col-4">
-      <a href="{{ url_for('photos.view_photo',id=photo.id) }}"><img src="{{ url_for('photos.view_raw_photo',id=photo.id) }}"  class="img-thumbnail" style="image-orientation: from-image;"/></a>
-    </div>
-    {% endfor %}
-  </div>
 </div>
 
 <div class="modal fade" tabindex="-1" id="upload-modal" role="dialog">
@@ -73,14 +82,14 @@
       <div class="modal-body">
         {% for category in votes %}
         <h6>{{ category.name }}</h6>
-         {% for photo in category.photos %}
-         <div class="card" style="max-width;">
-            <img class="card-img-top img-thumbnail" src="{{ url_for('photos.view_raw_photo',id=photo.id) }}" style="max-height: 200px; image-orientation: from-image;" alt="Ranked photo">
-            <div class="card-body">
-              <p class="card-text">Rank: {{ photo.votes[0].rank }}</p>
-            </div>
+        {% for photo in category.photos %}
+        <div class="card" style="max-width;">
+          <img class="card-img-top img-thumbnail" src="{{ url_for('photos.view_raw_photo',id=photo.id) }}" style="max-height: 200px; image-orientation: from-image;" alt="Ranked photo">
+          <div class="card-body">
+            <p class="card-text">Rank: {{ photo.votes[0].rank }}</p>
           </div>
-          {% endfor %}
+        </div>
+        {% endfor %}
         {% endfor %}
       </div>
       <div class="modal-footer">
