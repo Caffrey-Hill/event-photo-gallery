@@ -14,11 +14,12 @@ from .models import *
 db.create_all()
 
 from .utils import generate_passcode
-from .photos import photos
+from .public import public
 from .admin import admin
-from .public import *
+from .photos import photos
 
-app.register_blueprint(photos, url_prefix='/photos')
+app.register_blueprint(public)
+app.register_blueprint(photos)
 app.register_blueprint(admin, url_prefix='/admin')
 
 admins = User.query.filter_by(admin=True).all()
