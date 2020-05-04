@@ -2,7 +2,8 @@ import zipfile
 from io import BytesIO
 import os
 
-from flask import request, abort, render_template, redirect, url_for, current_app, send_from_directory, Blueprint, flash, send_file
+from flask import request, abort, render_template, redirect, url_for,\
+        current_app, send_from_directory, Blueprint, flash, send_file
 from flask_login import current_user
 from werkzeug.utils import secure_filename
 
@@ -93,7 +94,9 @@ def view_photo(id):
     next_photo = Photo.query.filter(id < Photo.id).first()
     prev_num = prev_photo.id if prev_photo else None
     next_num = next_photo.id if next_photo else None
-    return render_template("pages/photo.html", has_next=(next_num is not None), has_prev=(prev_num is not None), next_num=next_num, prev_num=prev_num, photo_id=id, comments=photo.comments, category=photo.category.name)
+    return render_template("pages/photo.html", has_next=(next_num is not None),\
+            has_prev=(prev_num is not None), next_num=next_num,\
+            prev_num=prev_num, photo=photo)
 
 @photos.route('/raw/<id>')
 def view_raw_photo(id):

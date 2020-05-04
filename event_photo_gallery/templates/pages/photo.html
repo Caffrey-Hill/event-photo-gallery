@@ -9,46 +9,64 @@
 {% endfor %}
 {% endwith %}
 
-<div class="row text-center">
-  <span class="col text-cener">
-    <img src="{{ url_for('photos.view_raw_photo',id=photo_id) }}"  class="img-thumbnail"style="image-orientation: from-image;"/>
-  </span>
-</div>
-<div class="row text-center">
-  <span class="col text-cener">
-    Category: {{ category }}
-  </span>
-</div>
-
-<form method="post" class="mt-2 voting-form">
-  <div class="form-group">
-    <label for="rank">Your Vote</label>
-    <select class="form-control" name="rank" id="rank">
-      <option value="1">1st Choice</option>
-      <option value="2">2nd Choice</option>
-      <option value="3">3rd Choice</option>
-    </select>
+<div class="row">
+  <div class="col-12 mx-auto">
+    Category: {{ photo.category }}
   </div>
-  <div class="form-group">
-    <button class="btn btn-primary" type="submit" name="action" value="vote">Vote</button>
+</div>
+<div class="row">
+  <div class="col-12 mx-auto">
+    <img src="{{ url_for('photos.view_raw_photo',id=photo.id) }}"  class="img-thumbnail"style="image-orientation: from-image;"/>
   </div>
-</form>
+</div>
+<div class="row">
+  <div class="col-12 mx-auto">
+  </div>
+</div>
+<div class="row">
+  {% if current_user.id == photo.user_id or current_user.admin %}
+  <div class="col-12">
+    <form method="post">
+      <button class="btn btn-danger w-50 m-2"><i class="fa fa-trash"></i></form>
+    </form>
+  </div>
+  {% endif %}
+  {% if current_user.id == photo.user_id %}
+  <div class="col-12">
+    <form method="post" class="mt-2 voting-form form-inline">
+      <div class="form-row align-items-center mx-auto">
+        <div class="col-auto">
+          <label for="rank">Your Vote</label>
+        </div>
+        <div class="col-auto">
+          <select class="form-control" name="rank" id="rank">
+            <option value="1">1st Choice</option>
+            <option value="2">2nd Choice</option>
+            <option value="3">3rd Choice</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-primary mx-auto" type="submit" name="action" value="vote">Vote</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  {% endif %}
+</div>
 
 <div class="row" style="margin-top: 40px;">
-  <div class="col">
-    <nav aria-label="...">
-      <ul class="pagination">
-        <li class="page-item {{'disabled' if not has_prev }}">
-          <a class="page-link" href="{{'#' if not has_prev else url_for('photos.view_photo', id=prev_num) }}" tabindex="-1">Previous</a>
-        </li>
-        <li>
-          <a class="page-link" href="{{ url_for('photos.view_gallery') }}">Gallery</a>
-        </li>
-        <li class="page-item {{'disabled' if not has_next }}">
-          <a class="page-link" href="{{'#' if not has_next else  url_for('photos.view_photo', id=next_num) }}">Next</a>
-        </li>
-      </ul>
-    </nav>
+  <div class="col-12">
+    <ul class="pagination" style="justify-content: center;">
+      <li class="page-item {{'disabled' if not has_prev }}">
+        <a class="page-link" href="{{'#' if not has_prev else url_for('photos.view_photo', id=prev_num) }}" tabindex="-1">&#x25c0;</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="{{ url_for('photos.view_gallery') }}"><i class="fa fa-home"></i></a>
+      </li>
+      <li class="page-item {{'disabled' if not has_next }}">
+        <a class="page-link" href="{{'#' if not has_next else  url_for('photos.view_photo', id=next_num) }}">&#x25ba;</a>
+      </li>
+    </ul>
   </div>
 </div>
 
@@ -62,8 +80,8 @@
     </form>
   </div>
   <div class="row">Comments</div>
-  {% if comments is defined and comments %}
-  {% for comment in comments %}
+  {% if photo.comments is not none %}
+  {% for comment in photo.comments %}
   <div class="row">
     <div class="card" style="width: 100%;">
       <div class="card-body">
