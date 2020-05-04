@@ -11,7 +11,7 @@
 <div class="row">
   </form>
   <ul class="list-group container w-75">
-    <table class="table">
+    <table class="table mobile-table">
       <thead>
         <tr>
           <th scope="col">Name</th>
@@ -22,12 +22,12 @@
       <tbody>
         {% for user in users %}
         <tr>
-          <th scope="row">{{ user.name }}</th>
-          <td>{{ user.passcode }}</td>
+          <td scope="row" data-th="Name">{{ user.name }}</th>
+          <td data-th="Passcode">{{ user.passcode }}</td>
           <td>
             {% if user.id != current_user.id %}
             <form method="post"><button type="submit" class="btn btn-danger" 
-                                                        name="action" value="delete"><i class="fa fa-trash"></i></button>
+                                                      name="action" value="delete"><i class="fa fa-trash"></i> Delete</button>
               <input type="hidden" name="id" value="{{ user.id }}"/></form>
             {% endif %}
           </td>
