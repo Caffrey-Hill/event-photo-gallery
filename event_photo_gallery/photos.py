@@ -86,6 +86,19 @@ def view_photo(id):
                 db.session.delete(vote)
 
             db.session.commit()
+        elif request.form['action'] == 'delete':
+            photo = Photo.query.filter_by(id=id).first()
+            if photo:
+                if current_user.id == photo.user_id or current_user.admin:
+                    Vote.query.filter_by(photo_id=id).delete()
+                    db.session.delete(photo)
+                    db.session.commit()
+                    flash('Image deleted.')
+                    return redirect(url_for('photos.view_gallery'))
+                else:
+                    abort(403)
+            else:
+                abort(400)
         else:
             abort(400)
 

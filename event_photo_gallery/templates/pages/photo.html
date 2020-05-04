@@ -27,7 +27,7 @@
   {% if current_user.id == photo.user_id or current_user.admin %}
   <div class="col-12">
     <form method="post">
-      <button class="btn btn-danger w-50 m-2"><i class="fa fa-trash"></i></form>
+      <button class="btn btn-danger w-50 m-2" type="submit" name="action" value="delete"><i class="fa fa-trash"></i> Delete</form>
     </form>
   </div>
   {% endif %}
