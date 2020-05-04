@@ -1,45 +1,45 @@
 html, body {
-    padding: 0;
-    margin: 0;
-    height: 100%;
+  padding: 0;
+  margin: 0;
+  height: 100%;
 }
 
 body { 
-    background-color: #333;
-    background-attachment: fixed;
+  background-color: #333;
+  background-attachment: fixed;
 
-    height: auto !important; /* real browsers */
-    min-height: 100%; /* real browsers */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  height: auto !important; /* real browsers */
+  min-height: 100%; /* real browsers */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* Customize container */
 @media (min-width: 768px) {
-    .container {
-        max-width: 800px;
-    }
+  .container {
+    max-width: 800px;
+  }
 }
 
 .content-container {
-    background-color: white;
-    height: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 30px;
-    -moz-box-shadow:    -1px 5px 5px 5px rgba(0, 0, 0, 0.5);;
-    -webkit-box-shadow: -1px 5px 5px 5px rgba(0, 0, 0, 0.5);;
-    box-shadow:         -1px 5px 5px 5px rgba(0, 0, 0, 0.5);;
+  background-color: white;
+  height: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 30px;
+  -moz-box-shadow:    -1px 5px 5px 5px rgba(0, 0, 0, 0.5);;
+  -webkit-box-shadow: -1px 5px 5px 5px rgba(0, 0, 0, 0.5);;
+  box-shadow:         -1px 5px 5px 5px rgba(0, 0, 0, 0.5);;
 }
 
 .title {
-    font-size: 50px;
+  font-size: 50px;
 }
 
 .subtitle {
-    color: black;
-    font-size: 26px;
+  color: black;
+  font-size: 26px;
 }
 
 h5.admin {
@@ -52,37 +52,58 @@ h5.admin {
   color: orange;
 }
 
+nav.button-nav ul li a {
+  display: block;
+}
+
+nav.button-nav ul li a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+nav.button-nav ul li:hover a {
+  color: #fff;
+}
+
 @media screen and (max-width:736px) {
-	table.mobile-table {
-		word-wrap:break-word;
-	}
-	table.mobile-table thead {
-		display:none
-	}
-	table.mobile-table td {
-		display:block;
-		float:left;
-		width:100%;
-		clear:both;
-		background:#f8f9fa;
-		padding:10px 5px;
-		-moz-box-sizing:border-box;
-		-webkit-box-sizing:border-box;
-		box-sizing:border-box;
-	}
-	table.mobile-table tbody, table.mobile-table tr {
-		display:block
-	}
-	.mobile-table td:before {
-		content:attr(data-th);
-		display:block;
-		font-weight:bold;
-		margin:0 0 2px;
-		color:#000;
-	}
-	.mobile-table tbody tr {
-		float:left;width:100%;
+  nav.button-nav ul {
+    display: grid;
+  }
+
+  nav.button-nav ul li {
+    margin-bottom: 4px;
+  }
+
+  table.mobile-table {
+    word-wrap:break-word;
+  }
+  table.mobile-table thead {
+    display:none
+  }
+  table.mobile-table td {
+    display:block;
+    float:left;
+    width:100%;
+    clear:both;
+    background:#f8f9fa;
+    padding:10px 5px;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+  }
+  table.mobile-table tbody, table.mobile-table tr {
+    display:block
+  }
+  .mobile-table td:before {
+    content:attr(data-th);
+    display:block;
+    font-weight:bold;
+    margin:0 0 2px;
+    color:#000;
+  }
+  .mobile-table tbody tr {
+    float:left;width:100%;
     margin-bottom:10px;
-	}
+  }
 }
 

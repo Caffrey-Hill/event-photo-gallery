@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 {% block content %} 
 {% if 'SITE_SUBTITLE' in config %}<h2 class="subtitle">{{ config.SITE_SUBTITLE }}</h2>{% endif %}
-<p>
-{% if not config.DISABLE_VOTES %}
-<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#votes-modal">My Votes</button>
-{% endif %}
-<a href="{{ url_for('photos.download_photos') }}" class="btn btn-outline-primary" role="button">Download</a>
-<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#upload-modal"><i class="fa fa-upload"></i> Upload</button>
-</p>
+<nav class="button-nav">
+  <ul>
+    {% if not config.DISABLE_VOTES %}
+    <li class="btn btn-outline-primary" role="button" data-toggle="modal" data-target="#votes-modal">My Votes</li>
+    {% endif %}
+    <li class="btn btn-outline-primary" role="button"><a href="{{ url_for('photos.download_photos') }}">Download</a></li>
+    <li class="btn btn-outline-primary" role="button" data-toggle="modal" data-target="#upload-modal">Upload</li>
+  </ul>
+</nav>
 
 {% with messages = get_flashed_messages() %}
 {% for message in messages %}
