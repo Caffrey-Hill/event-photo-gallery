@@ -13,7 +13,7 @@ template_files = get_files('event_photo_gallery/templates')
 
 setup(
     name="event-photo-gallery",
-    version='1.0.1',
+    version='1.0.2',
     platforms="all",
     packages=find_packages(),
     package_data={
