@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="event-phost-gallery",
+    name="event-photo-gallery",
     version='1.0.0',
     platforms="all",
     packages=find_packages(),
