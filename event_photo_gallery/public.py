@@ -26,7 +26,8 @@ def login():
     elif request.method == 'POST':
         user = User.query.filter_by(passcode=request.form['passcode']).first()
         if user:
-            login_user(user)
+            remember = True if request.form['remember'] == 'true' else False
+            login_user(user, remember=True)
             return redirect(url_for('public.login'))
         else:
             flash("Invalid passcode.")
