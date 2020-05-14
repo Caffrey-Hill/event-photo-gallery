@@ -1,8 +1,7 @@
 from flask import request, abort, render_template, redirect, url_for, current_app, Blueprint, flash
 from flask_login import current_user
-from .models import User, Category, Photo, Vote
-from .utils import generate_passcode
-from . import db
+from .models import db, User, Category, Photo, Vote
+from .login import generate_passcode
 
 admin = Blueprint('admin', __name__, template_folder='templates')
 

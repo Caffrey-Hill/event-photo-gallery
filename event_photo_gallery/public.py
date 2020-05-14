@@ -1,7 +1,6 @@
 from flask import request, render_template, redirect, url_for, flash, Blueprint
 from flask_login import current_user, login_user, logout_user, login_required
-from . import db
-from .models import User, Photo
+from .models import db, User, Photo
 
 public = Blueprint('public', __name__, template_folder='templates')
 

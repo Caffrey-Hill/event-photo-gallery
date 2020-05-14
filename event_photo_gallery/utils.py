@@ -1,12 +1,7 @@
 from io import BytesIO
-import string
-import random
 from PIL import Image, ExifTags
 import piexif
 from werkzeug.datastructures import FileStorage
-
-def generate_passcode(size=12, chars=string.ascii_letters + string.digits):
-    return ''.join(random.choice(chars) for _ in range(size))
 
 def rotate_jpeg(img):
     image = Image.open(img)
