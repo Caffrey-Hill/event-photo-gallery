@@ -35,10 +35,10 @@
     <nav aria-label="...">
       <ul class="pagination" style="justify-content: center;">
         <li class="page-item {{'disabled' if not photos.has_prev }}">
-          <a class="page-link" href="{{'#' if photos.has_prev else "?page="+(photos.prev_num|string) }}" tabindex="-1">&#x25c0;</a>
+          <a class="page-link" href="{{'#' if not photos.has_prev else "?page="+(photos.prev_num|string) }}" tabindex="-1">&#x25c0;</a>
         </li>
         <li class="page-item {{'disabled' if not photos.has_next }}">
-          <a class="page-link" href="{{'#' if photos.has_next else "?page="+(photos.next_num|string) }}">&#x25ba;</a>
+          <a class="page-link" href="{{'#' if not photos.has_next else "?page="+(photos.next_num|string) }}">&#x25ba;</a>
         </li>
       </ul>
     </nav>
