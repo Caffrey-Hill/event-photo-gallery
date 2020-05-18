@@ -9,4 +9,6 @@ cleanup() {
   rm -f ./dev.db
 }
 
+flask init-db
+flask create-admin
 flask run

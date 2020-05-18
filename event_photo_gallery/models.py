@@ -1,5 +1,9 @@
+
+import click
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from flask.cli import with_appcontext
+
 from .login import login
 
 db = SQLAlchemy()
@@ -56,3 +60,21 @@ class Comment(db.Model):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+@click.command("init-db", help='Initalize an Event Photo Gallery database')
+@with_appcontext
+def init_db():
+    db.create_all()
+    click.echo("Initialized the database.")
+
+@click.command("create-admin", help='Creates an admin user for an Event Photo'\
+        ' Gallery')
+@click.option('--name', prompt=True)
+@click.option('--passcode', prompt=True, hide_input=True,\
+        confirmation_prompt=True)
+@with_appcontext
+def create_admin(name, passcode):
+    user = User(name=name, passcode=passcode, admin=True)
+    db.session.add(user)
+    db.session.commit()
+    click.echo("Admin created.")

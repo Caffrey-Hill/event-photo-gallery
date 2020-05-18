@@ -1,11 +1,14 @@
 from flask import Flask
 
-def create_app():
+def create_app(config=None):
     app = Flask(__name__)
+    if isinstance(config, dict):
+        for key in config:
+            app.config[key] = config[key]
     app.config.from_object('event_photo_gallery.default_settings')
-    app.config.from_envvar('EVENT_PHOTO_GALLERY_SETTINGS')
+    app.config.from_envvar('EVENT_PHOTO_GALLERY_SETTINGS', silent=True)
 
-    from .models import db, User
+    from .models import db
     db.init_app(app)
 
     from .login import generate_passcode, login
@@ -19,15 +22,8 @@ def create_app():
     app.register_blueprint(photos)
     app.register_blueprint(admin, url_prefix='/admin')
 
-    with app.app_context():
-        db.create_all()
-    
-        admins = User.query.filter_by(admin=True).all()
-        if not any(admins):
-            passcode = generate_passcode()
-            user = User(name="admin", passcode=passcode, admin=True)
-            print('No admin users found. Created admin passcode: %s' % (passcode))
-            db.session.add(user)
-            db.session.commit()
+    from .models import init_db, create_admin
+    app.cli.add_command(init_db)
+    app.cli.add_command(create_admin)
 
     return app
