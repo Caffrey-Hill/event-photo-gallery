@@ -1,6 +1,7 @@
 import zipfile
 from io import BytesIO
 import os
+import uuid
 
 from flask import request, abort, render_template, redirect, url_for,\
         current_app, send_from_directory, Blueprint, flash, send_file
@@ -130,8 +131,8 @@ def upload():
     for uploaded_photo in uploaded_photos:
         if uploaded_photo.content_type == "image/jpeg":
             rotate_jpeg(uploaded_photo)
-        filename = secure_filename(uploaded_photo.filename)
-        print(filename)
+        _, extension = os.path.splitext(uploaded_photo.filename)
+        filename = str(uuid.uuid4())  + extension
         uploaded_photo.save(os.path.join(current_app.config['UPLOADS_FOLDER'], filename))
         photo = Photo(path=filename, user_id=current_user.id, category_id=request.form['category'])
         db.session.add(photo)
