@@ -28,7 +28,7 @@ def login():
             remember = True if 'remember' in request.form and\
                     request.form['remember'] == 'true' else False
             login_user(user, remember=True)
-            return redirect(url_for('public.login'))
+            return redirect(url_for('photos.view_gallery'))
         else:
             flash("Invalid passcode.")
             return redirect(url_for('public.login'))
