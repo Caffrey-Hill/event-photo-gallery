@@ -1,12 +1,15 @@
 import zipfile
 from io import BytesIO
 import os
+import urllib
 import uuid
 
 from flask import request, abort, render_template, redirect, url_for,\
-        current_app, send_from_directory, Blueprint, flash, send_file
+        current_app, send_from_directory, Blueprint, flash, send_file,\
+        Response
 from flask_login import current_user
 from werkzeug.utils import secure_filename
+from werkzeug.wsgi import FileWrapper
 
 from .models import db, User, Photo, Comment, Category, Vote
 from .utils import rotate_jpeg
@@ -44,7 +47,11 @@ def download_photos():
            for file in files:
                 zipf.write(os.path.join(root, file), file)
     memory_file.seek(0)
-    return send_file(memory_file, attachment_filename='%s.zip' % (current_app.config['SITE_TITLE']), as_attachment=True)
+    return Response(FileWrapper(memory_file), mimetype="application/zip",\
+            direct_passthrough=True, headers = {
+                'Content-Disposition': 'attachment; filename=%s.zip' %\
+                (urllib.parse.quote(current_app.config['SITE_TITLE']))
+                })
 
 @photos.route('/view/<id>', methods=['GET', 'POST'])
 def view_photo(id):
