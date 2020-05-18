@@ -31,7 +31,7 @@
     </form>
   </div>
   {% endif %}
-  {% if current_user.id == photo.user_id %}
+  {% if current_user.id != photo.user_id and not config.DISABLE_VOTES %}
   <div class="col-12">
     <form method="post" class="mt-2 voting-form form-inline">
       <div class="form-row align-items-center mx-auto">
