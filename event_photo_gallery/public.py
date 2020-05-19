@@ -12,6 +12,13 @@ def page_not_found(e):
 def unauthorized(e):
     return redirect(url_for('public.login'))
 
+@public.route('/auth')
+def authenticated():
+    if current_user.is_authenticated:
+        return "Authenticated", 200
+    else:
+        return "Unauthenticated", 401
+
 @public.route('/logout')
 @login_required
 def logout():
