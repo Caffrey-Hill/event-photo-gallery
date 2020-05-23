@@ -30,7 +30,6 @@ setup(
         'Flask',
         'Flask-SQLAlchemy',
         'Flask-Login',
-        'pillow',
         'piexif',
     ),
 )

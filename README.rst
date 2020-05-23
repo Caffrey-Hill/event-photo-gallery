@@ -14,7 +14,7 @@ for their guests to share and view photos.
 Requirements
 ------------
 
-Required packages include: Flask, Flask-SQLAlchemy, Flask-Login,pillow, and piexif
+Required packages include: Flask, Flask-SQLAlchemy, Flask-Login, and piexif
 
 How to run
 -------------
