@@ -12,7 +12,6 @@ from werkzeug.utils import secure_filename
 from werkzeug.wsgi import FileWrapper
 
 from .models import db, User, Photo, Comment, Category, Vote
-from .utils import rotate_jpeg
 
 photos = Blueprint('photos', __name__, template_folder='templates')
 
@@ -136,9 +135,6 @@ def upload():
             abort(400);
 
     for uploaded_photo in uploaded_photos:
-        if uploaded_photo.content_type == "image/jpeg":
-            rotate_jpeg(uploaded_photo)
-        _, extension = os.path.splitext(uploaded_photo.filename)
         filename = str(uuid.uuid4())  + extension
         uploaded_photo.save(os.path.join(current_app.config['UPLOADS_FOLDER'], filename))
         photo = Photo(path=filename, user_id=current_user.id, category_id=request.form['category'])
