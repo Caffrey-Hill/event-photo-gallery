@@ -41,8 +41,12 @@ def view_gallery():
     page = int(request.args.get("page", 1))
     photos = get_photos(page)
     categories = Category.query.all()
+    voting_open = []
+    for category in categories:
+        if category.voting_enabled:
+            voting_open.append(category.name)
     return render_template('pages/gallery.html', photos=photos,
-            categories=categories, votes=get_votes())
+            categories=categories, votes=get_votes(), voting_open=voting_open)
 
 @photos.route('/download')
 def download_photos():
