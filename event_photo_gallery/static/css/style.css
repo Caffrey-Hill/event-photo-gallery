@@ -124,3 +124,7 @@ nav.button-nav ul li:hover a {
   font-weight: bold;
   font-size: 1.2em;
 }
+.status {
+  margin-bottom: 35px;
+  background-color: #eefdec;
+}
