@@ -106,4 +106,21 @@ nav.button-nav ul li:hover a {
     margin-bottom:10px;
   }
 }
-
+.item {
+  position: relative;
+  display: inline-block;
+}
+.rank-badge {
+  position: absolute;
+  top: -2;
+  left: 30px;
+  widht: 33px;
+  background-color: #fb0;
+  color: black;
+  text-decoration: none;
+  padding: 15px 26px;
+  display: inline-block;
+  border-radius: 2px;
+  font-weight: bold;
+  font-size: 1.2em;
+}
