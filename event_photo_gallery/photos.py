@@ -69,7 +69,7 @@ def view_photo(id):
             photo.comments.append(comment)
             db.session.add(comment)
             db.session.commit()
-        elif request.form['action'] == 'vote' and not current_app.config['DISABLE_VOTES']:
+        elif request.form['action'] == 'vote' and photo.category.voting_enabled:
             if request.form['rank'] not in ['1', '2', '3']:
                 abort(400)
             rank = request.form['rank']
