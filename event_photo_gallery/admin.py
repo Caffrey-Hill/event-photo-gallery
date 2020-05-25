@@ -49,13 +49,26 @@ def categories():
             category = Category(name=request.form["name"])
             db.session.add(category)
             db.session.commit()
+        elif request.form["action"] == "edit":
+            category = Category.query.filter_by(id=request.form["id"]).first()
+            if category:
+                category.voting_enabled = True if 'voting_enabled'\
+                        in request.form else False
+                category.comments_enabled = True if 'comments_enabled'\
+                        in request.form else False
+                category.uploads_enabled = True if 'uploads_enabled'\
+                        in request.form else False
+                category.name = request.form["name"]
+                db.session.commit()
+            else:
+                abort(404)
         elif request.form["action"] == "delete":
             category = Category.query.filter_by(id=request.form["id"]).first()
             if category:
                 db.session.delete(category)
                 db.session.commit()
             else:
-                abort(400)
+                abort(404)
         else:
             abort(400)
 
