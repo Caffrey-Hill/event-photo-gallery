@@ -135,6 +135,7 @@ def upload():
             abort(400);
 
     for uploaded_photo in uploaded_photos:
+        _, extension = os.path.splitext(uploaded_photo.filename)
         filename = str(uuid.uuid4())  + extension
         uploaded_photo.save(os.path.join(current_app.config['UPLOADS_FOLDER'], filename))
         photo = Photo(path=filename, user_id=current_user.id, category_id=request.form['category'])
