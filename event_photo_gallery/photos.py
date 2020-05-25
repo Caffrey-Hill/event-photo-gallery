@@ -30,10 +30,17 @@ def get_votes():
             .all()
     return categories
 
+#Get photos for gallery page
+def get_photos(page):
+    photo_query = Photo.query\
+        .outerjoin(Vote)
+    photos = photo_query.paginate(page, 27)
+    return photos
+
 @photos.route('/')
 def view_gallery():
     page = int(request.args.get("page", 1))
-    photos = Photo.query.paginate(page, 9)
+    photos = get_photos(page)
     categories = Category.query.all()
     return render_template('pages/gallery.html', photos=photos,
             categories=categories, votes=get_votes())
@@ -74,7 +81,7 @@ def view_photo(id):
 
             vote = Vote.query.filter_by(user_id=current_user.id, photo_id=id).first()
             if vote:
-                ''' Found an existing vote for photo by guets '''
+                ''' Found an existing vote for photo by user '''
                 vote.rank = rank
                 flash("Your vote has been updated.")
             else:
@@ -82,10 +89,12 @@ def view_photo(id):
                 vote = Vote(photo_id=id, user_id=current_user.id, rank=rank)
                 db.session.add(vote)
 
-            vote = Vote.query.filter(Vote.photo_id != id) \
-                .filter(Vote.user_id == current_user.id) \
-                    .filter(Vote.rank == rank) \
-                    .join(Vote.photo).filter(Photo.category_id == photo.category_id).first()
+            vote_query = Vote.query.filter(
+                    and_(Vote.photo_id != id,\
+                    Vote.user_id == current_user.id, \
+                    Vote.rank == rank))\
+                    .join(Vote.photo).filter(Photo.category_id == photo.category_id)
+            vote = vote_query.first()
             if vote:
                 ''' Found existing vote of same rank by user '''
                 flash("Removing previous vote of same rank.")

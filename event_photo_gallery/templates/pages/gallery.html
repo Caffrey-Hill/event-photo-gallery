@@ -23,8 +23,14 @@
   <div class="container">
     <div class="row">
       {% for photo in photos.items %}
-      <div class="col-4">
-        <a href="{{ url_for('photos.view_photo',id=photo.id) }}"><img src="{{ url_for('photos.view_raw_photo',id=photo.id) }}"  class="img-thumbnail" style="image-orientation: from-image;"/></a>
+      <div class="item col-4">
+        <a href="{{ url_for('photos.view_photo',id=photo.id) }}"><img src="{{ url_for('photos.view_raw_photo',id=photo.id) }}"  class="img-thumbnail" style="image-orientation: from-image;"/>
+        {% for vote in photo.votes %}
+            {% if current_user.id == vote.user_id %}
+            <span class="rank-badge">{{ vote.rank }}</span>
+            {% endif %}
+            {% endfor %}
+        </a>
       </div>
       {% endfor %}
     </div>
