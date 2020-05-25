@@ -29,7 +29,6 @@ setup(
     install_requires=(
         'Flask',
         'Flask-SQLAlchemy',
-        'Flask-Login',
-        'piexif',
+        'Flask-Login'
     ),
 )
