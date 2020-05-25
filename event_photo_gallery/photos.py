@@ -64,7 +64,7 @@ def view_photo(id):
     if photo is None:
         abort(404)
     if request.method == "POST":
-        if request.form['action'] == 'comment' and not current_app.config['DISABLED_COMMENTS']:
+        if request.form['action'] == 'comment' and not photo.category.comments_enabled:
             comment = Comment(text=request.form['comment'], user_id=current_user.id)
             photo.comments.append(comment)
             db.session.add(comment)
