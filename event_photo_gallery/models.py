@@ -39,6 +39,8 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True, nullable=False) 
     voting_enabled = db.Column(db.Boolean, nullable=False, default=False)
+    uploads_enabled = db.Column(db.Boolean, nullable=False, default=False)
+    comments_enabled = db.Column(db.Boolean, nullable=False, default=False)
     photos = db.relationship('Photo', backref='category', lazy=True)
 
 class Vote(db.Model):
