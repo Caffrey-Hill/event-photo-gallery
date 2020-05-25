@@ -1,9 +1,6 @@
 event-photo-gallery: A collaborative, micro photo gallery
 ==================================================
 
-:Site:  https://github.com/ReverentEngineer/event-photo-gallery
-:Original author: Jeff Caffrey-Hill <jeff@reverentengineer.com>
-
 .. contents::
    :local:
 
@@ -14,7 +11,7 @@ for their guests to share and view photos.
 Requirements
 ------------
 
-Required packages include: Flask, Flask-SQLAlchemy, Flask-Login, and piexif
+Required packages include: Flask, Flask-SQLAlchemy, Flask-Login
 
 How to run
 -------------
