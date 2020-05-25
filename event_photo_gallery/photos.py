@@ -4,6 +4,7 @@ import os
 import urllib
 import uuid
 
+from sqlalchemy.sql.expression import and_
 from flask import request, abort, render_template, redirect, url_for,\
         current_app, send_from_directory, Blueprint, flash, send_file,\
         Response
@@ -30,12 +31,10 @@ def get_votes():
             .all()
     return categories
 
-#Get photos for gallery page
 def get_photos(page):
-    photo_query = Photo.query\
-        .outerjoin(Vote)
-    photos = photo_query.paginate(page, 27)
-    return photos
+    return db.session.query(Photo, Vote)\
+            .outerjoin(Vote, Vote.user_id == current_user.id)\
+            .paginate(page, 27)
 
 @photos.route('/')
 def view_gallery():
