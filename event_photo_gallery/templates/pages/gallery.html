@@ -64,7 +64,9 @@
           <label for="category">Category</label>
           <select class="form-control" id="category" name="category">
             {% for category in categories %}
-            <option value="{{ category.id }}">{{ category.name }}</option>
+              {% if category.uploads_enabled %}
+              <option value="{{ category.id }}">{{ category.name }}</option>
+              {% endif %}
             {% endfor %}
           </select>
         </div>

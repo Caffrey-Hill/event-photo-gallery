@@ -135,6 +135,10 @@ def view_raw_photo(id):
 
 @photos.route('/upload', methods=['POST'])
 def upload():
+    category = Category.query.filter_by(id=request.form["category"]).first()
+    if not category or not category.uploads_enabled:
+        abort(400)
+    
     uploaded_photos = request.files.getlist("photo[]")
     for uploaded_photo in uploaded_photos:
         if not ('.' in uploaded_photo.filename and \
