@@ -86,6 +86,10 @@
         </button>
       </div>
       <div class="modal-body">
+        {% if votes|length == 0 %}
+          <p>You have not selected any votes yet.</p>
+          <p>It's easy to get started. Go to the photo of your choice and select its rank below the photo.</p> 
+        {% endif %}
         {% for category in votes %}
         <h6>Category: {{ category.name }}</h6>
         <table class="table">
@@ -98,11 +102,13 @@
           </thead>
           <tbody>
             {% for photo in category.photos %}
+            {% if photo.votes|length > 0 %}
             <tr>
               <td>{{ photo.votes[0].rank }}</td>
               <td>{{ photo.id }}</td>
               <td><a href="{{ url_for('photos.view_photo',id=photo.id) }}">View</a></td>
             </tr>
+            {% endif %}
             {% endfor %}
           </tbody>
         </table>
