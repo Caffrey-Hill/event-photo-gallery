@@ -1,7 +1,7 @@
 {% extends "admin_base.html" %}
 {% block content %} 
 
-<h5 class="admin">Categories</h5>
+<h3 class="admin">Categories</h3>
 <div class="row">
   <form class="form-inline mb-2 mx-auto" method="post">
     <div class="form-row align-items-center mx-auto">
@@ -15,11 +15,26 @@
 </div>
 <div class="row">
   </form>
-  <ul class="list-group container w-75">
+  <ul class="list-group container w-75 mt-4">
     {% for category in categories %}
-    <li class="list-group-item">{{ category.name }}
-      <form method="post" class="float-right"><button type="submit" class="btn btn-danger" 
-                                                                    name="action" value="delete"><i class="fa fa-trash"></i></button>
+    <li class="list-group-item">
+      <h4>{{ category.name }}</h4>
+      <form method="post"> 
+        <ul style="text-align: left;">
+          <li><input type="checkbox" class="form-check-input"
+            name="uploads_enabled" value="yes"
+            {{ 'checked' if category.uploads_enabled }}>Enable Uploads</li>
+          <li><input type="checkbox" class="form-check-input"
+            name="comments_enabled" value="yes"
+            {{ 'checked' if category.comments_enabled }}>Enable Comments</li>
+          <li><input type="checkbox" class="form-check-input"
+            name="voting_enabled" value="yes"
+            {{ 'checked' if category.voting_enabled }}>Enable Voting</li>
+        </ul>
+        <button type="submit" class="mt-4 btn btn-primary mr-2" 
+          name="action" value="save">Save</button>
+        <button type="submit" class="mt-4 btn btn-danger ml-2" 
+          name="action" value="delete"><i class="fa fa-trash"></i> Delete</button>
         <input type="hidden" name="id" value="{{ category.id }}"/></form></li>
     {% endfor %}
   </ul>
