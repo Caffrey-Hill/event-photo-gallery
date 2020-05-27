@@ -33,7 +33,8 @@ def get_votes():
 
 def get_photos(page):
     return db.session.query(Photo, Vote)\
-            .outerjoin(Vote, Vote.user_id == current_user.id)\
+            .outerjoin(Vote, and_(Photo.id == Vote.photo_id,\
+                    Vote.user_id == current_user.id))\
             .paginate(page, 27)
 
 @photos.route('/')
