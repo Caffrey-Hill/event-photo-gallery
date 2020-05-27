@@ -1,0 +1,14 @@
+name: CI
+on: [push]
+
+jobs:
+  build:
+    name: CI Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+      - name: Run tests
+        run: python3 setup.py test
