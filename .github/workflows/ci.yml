@@ -1,9 +1,9 @@
-name: CI
+name: build
 on: [push]
 
 jobs:
   build:
-    name: CI Tests
+    name: test
     runs-on: ubuntu-latest
     steps:
       - name: Clone repository
