@@ -1,8 +1,9 @@
 event-photo-gallery: A collaborative, micro photo gallery
 ==================================================
 
-.. contents::
-   :local:
+.. image :: https://github.com/ReverentEngineer/event-photo-gallery/workflows/build/badge.svg
+    :alt: Build status
+    :target: https://github.com/ReverentEngineer/event-photo-gallery/actions?query=workflow%3Abuild
 
 event-photo-gallery is a `Flask <https://palletsprojects.com/p/flask/>`_-based 
 micro photo gallery that is designed to enable users to create a small space
