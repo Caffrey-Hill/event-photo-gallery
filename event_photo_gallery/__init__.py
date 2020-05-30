@@ -14,6 +14,9 @@ def create_app(config=None):
     from .login import generate_passcode, login
     login.init_app(app)
 
+    from .cache import cache
+    cache.init_app(app)
+
     from .public import public
     from .admin import admin
     from .photos import photos

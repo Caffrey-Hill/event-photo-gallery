@@ -29,7 +29,8 @@ setup(
     install_requires=(
         'Flask',
         'Flask-SQLAlchemy',
-        'Flask-Login'
+        'Flask-Login',
+        'Flask-Caching'
     ),
     setup_requires=[
         'pytest-runner',
