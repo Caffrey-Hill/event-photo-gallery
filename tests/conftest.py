@@ -21,7 +21,8 @@ def app():
     app = create_app(config)
     with app.app_context():
         db.create_all()
-        db.engine.execute(_data_sql)
+        for line in _data_sql.split("\n"):
+            db.engine.execute(line)
     yield app
     os.close(db_fd)
     os.unlink(db_path)
